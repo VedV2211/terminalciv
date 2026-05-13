@@ -10,9 +10,9 @@ metal = 0
 soldiers = 0
 
 # These are the number of factories that the player starts with
-farms = 1
-mills = 1
-mines = 1
+farms = 0
+mills = 0
+mines = 0
 barracks = 0
 
 # These is the cost of a factory at the start of the game
@@ -55,11 +55,10 @@ while choice != 6:
     elif choice == 3:
         factorychoice = input("    Which factory would you like to buy? \n    1. The farm costs " + str(farmCost) + "coins. You will have " + str(farms + 1) + " farms. \n    2. The mill costs " + str(millCost) + " food. You will have " + str(mills + 1) + " mills. \n    3. The mine costs " + str(mineCost) + " wood. You will have " + str(mines + 1) + " mines. \n    4. The barrack costs " + str(barracksCost) + "food, wood and metal. You will have " + str(barracks + 1) + " barracks. \n    5. I don't want to purchase anything. \nWhat would you like to do? ")
         factoryChoiceArray = factorychoice.split()
-        factoryChoiceArray.append("")
         factoryChoiceArray.append("1")
         factory = int(factoryChoiceArray[0])
         # short for numberOfFactories
-        nOF = int(factoryChoiceArray[2])
+        nOF = int(factoryChoiceArray[1])
         if (factory == 1) & (coins >= farmCost * nOF):
             farms += nOF 
             coins -= farmCost * nOF
@@ -74,7 +73,7 @@ while choice != 6:
             food -= barracksCost * nOF
             wood -= barracksCost * nOF
             metal -= barracksCost * nOF
-        elif factory > 4:
+        elif factory > 5:
             print("        Please try again")
             # return to the same menu so that the user doesn't have to return manually 
         else:
