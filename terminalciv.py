@@ -58,7 +58,7 @@ while choice != 6:
         factoryChoiceArray.append("1")
         factory = int(factoryChoiceArray[0])
         # short for numberOfFactories
-        nOF = int(factoryChoiceArray[1])
+        nOF = abs(int(factoryChoiceArray[1]))
         if (factory == 1) & (coins >= farmCost * nOF):
             farms += nOF 
             coins -= farmCost * nOF
