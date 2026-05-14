@@ -31,11 +31,10 @@ enemyStrength = [1, 2, 3, 5, 7, 10]
 enemyDefend = 0
 battleStage = 0 
 
-choice = int(input("1. Check how many of each item you have \n2. Check how many of each factory you have \n3. Purchase more factories \n4. Go to battle at level " + str((battleStage + 1)) + " \n5. Wait for a certain number of years. \n6. Quit \nWhat would you like to do? "))
+choice = input("1. Check how many of each item you have \n2. Check how many of each factory you have \n3. Purchase more factories \n4. Go to battle at level " + str((battleStage + 1)) + " \n5. Wait for a certain number of years. \n6. Quit \nWhat would you like to do? (help for help) ")
 
-while choice != 6:
-
-    if choice == 1:
+while choice != "6":
+    if choice == "1":
         print("")
         print("    You have " + str(coins) + " coins. ")
         print("    You have " + str(food) + " food. ")
@@ -44,7 +43,7 @@ while choice != 6:
         print("    You have " + str(soldiers) + " soldiers. ")
         print("")
 
-    elif choice == 2:
+    elif choice == "2":
         print("")
         print("    You have " + str(farms) + " farms. ")
         print("    You have " + str(mills) + " mills. ")
@@ -52,7 +51,7 @@ while choice != 6:
         print("    You have " + str(barracks) + " barracks. ")
         print("")
 
-    elif choice == 3:
+    elif choice == "3":
         factorychoice = input("    Which factory would you like to buy? \n    1. The farm costs " + str(farmCost) + "coins. You will have " + str(farms + 1) + " farms. \n    2. The mill costs " + str(millCost) + " food. You will have " + str(mills + 1) + " mills. \n    3. The mine costs " + str(mineCost) + " wood. You will have " + str(mines + 1) + " mines. \n    4. The barrack costs " + str(barracksCost) + "food, wood and metal. You will have " + str(barracks + 1) + " barracks. \n    5. I don't want to purchase anything. \nWhat would you like to do? ")
         factoryChoiceArray = factorychoice.split()
         factoryChoiceArray.append("1")
@@ -79,9 +78,14 @@ while choice != 6:
         else:
             print("        You did not have enough resources. ")
 
-    elif choice == 4:
+    elif choice == "4":
+        if soldiers == 0:
+            print("")
+            print("You have no soldiers yet. Try getting barracks in the shop. ")
+            print("")
         while (soldiers > 0):
-            battlechoice = input(hand)
+            print(hand)
+            battlechoice = input("What would you like to do? ")
             if battlechoice == "attack":
                 soldiersAttack = attack * soldiers
                 enemyHealth[battleStage] -= soldiersAttack
@@ -123,7 +127,7 @@ while choice != 6:
                 print("    You have " + str(soldiers) + " soldiers. ")
                 print("    The enemy has " + str(enemyHealth[battleStage]) + " health")
                 print("")
-    elif choice == 5:
+    elif choice == "5":
         years = int(input("How long would you like to wait for? "))
         print("")
         for i in range(years):
@@ -138,8 +142,9 @@ while choice != 6:
             else:
                 print("    It has now been " + str(i + 1) + " years.")
         print("")
-
-    choice = int(input("1. Check how many of each item you have \n2. Check how many of each factory you have \n3. Purchase more factories \n4. Go to battle at level " + str((battleStage + 1)) + "\n5. Wait for a certain number of years. \n6. Quit \nWhat would you like to do? "))
+    elif choice.lower() == "help":
+        print("Choose a number for your choice unless in battle, where you choose to attack or defend. ")
+    choice = input("1. Check how many of each item you have \n2. Check how many of each factory you have \n3. Purchase more factories \n4. Go to battle at level " + str((battleStage + 1)) + "\n5. Wait for a certain number of years. \n6. Quit \nWhat would you like to do? (help for help) ")
 
 
 
