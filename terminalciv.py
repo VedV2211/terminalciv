@@ -1,25 +1,39 @@
 import random
 import time
 
-# add a time freeze that is aboolean value so that time only increases outside of battle or a menu. hvae a random chance for the country to implode natural disease etc.
+# have a random chance for the country to implode natural disease etc.
+saveDataQuery = input("What is your save ID? (leave empty if N/A) ")
+# def dataSaving():
+if saveDataQuery != "":
+    saveData = saveDataQuery.split()
+    # return saveData
+elif saveDataQuery == "":
+    saveData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 20, 30, 50, 0]
+    # return saveData
+# else:
+    # print("Please give a valid save ID as a set of integers. ")
+    # dataSaving()
 
-coins = 10
-food = 0
-wood = 0
-metal = 0
-soldiers = 0
+# saveData = dataSaving()
+
+coins = int(saveData[0])
+food = int(saveData[1])
+wood = int(saveData[2])
+metal = int(saveData[3])
+soldiers = int(saveData[4])
+
 
 # These are the number of factories that the player starts with
-farms = 0
-mills = 0
-mines = 0
-barracks = 0
+farms = int(saveData[5])
+mills = int(saveData[6])
+mines = int(saveData[7])
+barracks = int(saveData[8])
 
 # These is the cost of a factory at the start of the game
-farmCost = 10
-millCost = 20
-mineCost = 30
-barracksCost = 50
+farmCost = int(saveData[9])
+millCost = int(saveData[10])
+mineCost = int(saveData[11])
+barracksCost = int(saveData[12])
 
 # These are the actions that the player can take in battle
 attack = 6
@@ -29,7 +43,7 @@ hand = ["attack", "defend"]
 enemyHealth = [100, 200, 500, 1000, 1500, 3000]
 enemyStrength = [1, 2, 3, 5, 7, 10]
 enemyDefend = 0
-battleStage = 0 
+battleStage = int(saveData[13])
 
 choice = input("1. Check how many of each item you have \n2. Check how many of each factory you have \n3. Purchase more factories \n4. Go to battle at level " + str((battleStage + 1)) + " \n5. Wait for a certain number of years. \n6. Quit \nWhat would you like to do? (help for help) ")
 
@@ -52,7 +66,7 @@ while choice != "6":
         print("")
 
     elif choice == "3":
-        factorychoice = input("    Which factory would you like to buy? \n    1. The farm costs " + str(farmCost) + "coins. You will have " + str(farms + 1) + " farms. \n    2. The mill costs " + str(millCost) + " food. You will have " + str(mills + 1) + " mills. \n    3. The mine costs " + str(mineCost) + " wood. You will have " + str(mines + 1) + " mines. \n    4. The barrack costs " + str(barracksCost) + "food, wood and metal. You will have " + str(barracks + 1) + " barracks. \n    5. I don't want to purchase anything. \nWhat would you like to do? ")
+        factorychoice = input("    Which factory would you like to buy? \n    1. The farm costs " + str(farmCost) + " coins. You will have " + str(farms + 1) + " farms. \n    2. The mill costs " + str(millCost) + " food. You will have " + str(mills + 1) + " mills. \n    3. The mine costs " + str(mineCost) + " wood. You will have " + str(mines + 1) + " mines. \n    4. The barrack costs " + str(barracksCost) + " food, wood and metal. You will have " + str(barracks + 1) + " barracks. \n    5. I don't want to purchase anything. \nWhat would you like to do? ")
         factoryChoiceArray = factorychoice.split()
         factoryChoiceArray.append("1")
         factory = int(factoryChoiceArray[0])
@@ -62,10 +76,10 @@ while choice != "6":
             farms += nOF 
             coins -= farmCost * nOF
         elif (factory == 2) & (food >= millCost * nOF):
-            mills += 1
+            mills += nOF
             food -= millCost * nOF
         elif (factory == 3) & (wood >= mineCost * nOF):
-            mines += 1
+            mines += nOF
             wood -= mineCost * nOF
         elif (factory == 4) & (food >= barracksCost * nOF) & (wood >= barracksCost * nOF) & (metal >= barracksCost * nOF):
             barracks += nOF
