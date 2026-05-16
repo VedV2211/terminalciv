@@ -1,21 +1,16 @@
 import random
 import time
 
-# have a random chance for the country to implode natural disease etc.
+# Allows for the player to input a save ID that will bring their items, factories and battle stage to a new run 
 saveDataQuery = input("What is your save ID? (leave empty if N/A) ")
-# def dataSaving():
-if saveDataQuery != "":
+if saveDataQuery != ""
     saveData = saveDataQuery.split()
-    # return saveData
 elif saveDataQuery == "":
     saveData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 20, 30, 50, 0]
-    # return saveData
-# else:
-    # print("Please give a valid save ID as a set of integers. ")
-    # dataSaving()
 
-# saveData = dataSaving()
+saveDataUsed = False
 
+# These are the items that the player starts with
 coins = int(saveData[0])
 food = int(saveData[1])
 wood = int(saveData[2])
@@ -35,7 +30,7 @@ millCost = int(saveData[10])
 mineCost = int(saveData[11])
 barrackCost = int(saveData[12])
 
-# These are the actions that the player can take in battle
+# These are related to the player's battles 
 attack = 6
 defend = 6
 soldiersDefend = 0
@@ -48,7 +43,9 @@ if saveDataQuery == "":
     choice = input("Press 5 to wait for a certain number of years to start the game. ")
 else:
     choice = input("Press any key to continue. ")
+    saveDataUsed = True
 while choice != "7":
+    # Prints out all of the player's items
     if choice == "1":
         print("")
         print("    You have " + str(coins) + " coins. ")
@@ -57,7 +54,8 @@ while choice != "7":
         print("    You have " + str(metal) + " metal. ")
         print("    You have " + str(soldiers) + " soldiers. ")
         print("")
-
+    
+    # Prints out all of the player's factories
     elif choice == "2":
         print("")
         print("    You have " + str(farms) + " farms. ")
@@ -65,7 +63,8 @@ while choice != "7":
         print("    You have " + str(mines) + " mines. ")
         print("    You have " + str(barracks) + " barracks. ")
         print("")
-
+    
+    # This is a menu where the player can buy new factories 
     elif choice == "3":
         factorychoice = input("    Which factory would you like to buy? \n    1. The farm costs " + str(farmCost) + " coins. You will have " + str(farms + 1) + " farms. \n    2. The mill costs " + str(millCost) + " food. You will have " + str(mills + 1) + " mills. \n    3. The mine costs " + str(mineCost) + " wood. You will have " + str(mines + 1) + " mines. \n    4. The barrack costs " + str(barrackCost) + " food, wood and metal. You will have " + str(barracks + 1) + " barracks. \n    5. I don't want to purchase anything. \nWhat would you like to do? ")
         factoryChoiceArray = factorychoice.split()
@@ -89,30 +88,34 @@ while choice != "7":
             metal -= barrackCost * nOF
         elif factory > 5:
             print("        Please try again")
-            # return to the same menu so that the user doesn't have to return manually 
         else:
             print("        You did not have enough resources. ")
-
+    
+    # This is for the battles
     elif choice == "4":
         if soldiers == 0:
             print("")
             print("You have no soldiers yet. Try getting barracks in the shop. ")
             print("")
+
         while (soldiers > 0):
             print(hand)
             battlechoice = input("What would you like to do? ")
+
             if battlechoice == "attack":
                 soldiersAttack = attack * soldiers
                 enemyHealth[battleStage] -= soldiersAttack
                 print("")
                 print("    You did " + str(soldiersAttack) + " damage to the Enemy")
                 print("")
+
             elif battlechoice == "defend":
-                # change this to remove the soldiers once the battle is finished
                 soldiersDefend = defend * soldiers
                 print("")
                 print("    You applied a shield for " + str(soldiersDefend) + " shield points. ")
+
             enemyAttackchoice = random.randint(1,2)
+
             if enemyHealth[battleStage] > 0:
                 if enemyAttackchoice == 1:
                     enemyAttack = ((random.randint(20, 60)) * enemyStrength[battleStage])
@@ -120,6 +123,7 @@ while choice != "7":
                     if soldiersDefend < 0:
                         soldiers += round(soldiersDefend/soldiers)
                     print("    The enemy did " + str(enemyAttack) + " damage to you.")
+
                 elif enemyAttackchoice == 2:
                     enemyHealed = (random.randint(5,20)) * enemyStrength[battleStage]
                     print("    The enemy used their medical supplies and healed " + str(enemyHealed) + " health points. ")
@@ -131,17 +135,21 @@ while choice != "7":
                 print("")
                 battleStage += 1
                 break
+
             elif soldiers <= 0:
                 print("")
                 print("    All of your soldiers died. ")
                 soldiers = 0
                 print("")
                 break
+
             else:
                 print("")
                 print("    You have " + str(soldiers) + " soldiers. ")
                 print("    The enemy has " + str(enemyHealth[battleStage]) + " health")
                 print("")
+
+    # The user can wait for a certain number of years (seconds) which gains resources 
     elif choice == "5":
         years = int(input("How long would you like to wait for? "))
         print("")
@@ -157,10 +165,15 @@ while choice != "7":
             else:
                 print("    It has now been " + str(i + 1) + " years.")
         print("")
+
+    # The user's save ID is printed out
     elif choice == "6":
         print(str(coins) + str(" ") + str(food) + str(" ") + str(wood) + str(" ") + str(metal) + str(" ") + str(soldiers) + str(" ") + str(farms) + str(" ") + str(mills) + str(" ") + str(mines) + str(" ") + str(barracks) + str(" ") + str(farmCost) + str(" ") + str(millCost) + str(" ") + str(mineCost) + str(" ") + str(barrackCost) + str(" ") + str(battleStage))
+    
+    # The user can get basic help
     elif choice.lower() == "help":
         print("Choose a number for your choice unless in battle, where you choose to attack or defend. ")
+
     choice = input("1. Check how many of each item you have \n2. Check how many of each factory you have \n3. Purchase more factories \n4. Go to battle at level " + str((battleStage + 1)) + "\n5. Wait for a certain number of years. \n6. Obtain your Save Data \n7. Quit \nWhat would you like to do? (help for help) ")
 
 
