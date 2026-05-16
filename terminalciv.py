@@ -33,7 +33,7 @@ barracks = int(saveData[8])
 farmCost = int(saveData[9])
 millCost = int(saveData[10])
 mineCost = int(saveData[11])
-barracksCost = int(saveData[12])
+barrackCost = int(saveData[12])
 
 # These are the actions that the player can take in battle
 attack = 6
@@ -44,10 +44,11 @@ enemyHealth = [100, 200, 500, 1000, 1500, 3000]
 enemyStrength = [1, 2, 3, 5, 7, 10]
 enemyDefend = 0
 battleStage = int(saveData[13])
-
-choice = input("1. Check how many of each item you have \n2. Check how many of each factory you have \n3. Purchase more factories \n4. Go to battle at level " + str((battleStage + 1)) + " \n5. Wait for a certain number of years. \n6. Quit \nWhat would you like to do? (help for help) ")
-
-while choice != "6":
+if saveDataQuery == "":
+    choice = input("Press 5 to wait for a certain number of years to start the game. ")
+else:
+    choice = input("Press any key to continue. ")
+while choice != "7":
     if choice == "1":
         print("")
         print("    You have " + str(coins) + " coins. ")
@@ -66,7 +67,7 @@ while choice != "6":
         print("")
 
     elif choice == "3":
-        factorychoice = input("    Which factory would you like to buy? \n    1. The farm costs " + str(farmCost) + " coins. You will have " + str(farms + 1) + " farms. \n    2. The mill costs " + str(millCost) + " food. You will have " + str(mills + 1) + " mills. \n    3. The mine costs " + str(mineCost) + " wood. You will have " + str(mines + 1) + " mines. \n    4. The barrack costs " + str(barracksCost) + " food, wood and metal. You will have " + str(barracks + 1) + " barracks. \n    5. I don't want to purchase anything. \nWhat would you like to do? ")
+        factorychoice = input("    Which factory would you like to buy? \n    1. The farm costs " + str(farmCost) + " coins. You will have " + str(farms + 1) + " farms. \n    2. The mill costs " + str(millCost) + " food. You will have " + str(mills + 1) + " mills. \n    3. The mine costs " + str(mineCost) + " wood. You will have " + str(mines + 1) + " mines. \n    4. The barrack costs " + str(barrackCost) + " food, wood and metal. You will have " + str(barracks + 1) + " barracks. \n    5. I don't want to purchase anything. \nWhat would you like to do? ")
         factoryChoiceArray = factorychoice.split()
         factoryChoiceArray.append("1")
         factory = int(factoryChoiceArray[0])
@@ -81,11 +82,11 @@ while choice != "6":
         elif (factory == 3) & (wood >= mineCost * nOF):
             mines += nOF
             wood -= mineCost * nOF
-        elif (factory == 4) & (food >= barracksCost * nOF) & (wood >= barracksCost * nOF) & (metal >= barracksCost * nOF):
+        elif (factory == 4) & (food >= barrackCost * nOF) & (wood >= barrackCost * nOF) & (metal >= barrackCost * nOF):
             barracks += nOF
-            food -= barracksCost * nOF
-            wood -= barracksCost * nOF
-            metal -= barracksCost * nOF
+            food -= barrackCost * nOF
+            wood -= barrackCost * nOF
+            metal -= barrackCost * nOF
         elif factory > 5:
             print("        Please try again")
             # return to the same menu so that the user doesn't have to return manually 
@@ -156,9 +157,11 @@ while choice != "6":
             else:
                 print("    It has now been " + str(i + 1) + " years.")
         print("")
+    elif choice == "6":
+        print(str(coins) + str(" ") + str(food) + str(" ") + str(wood) + str(" ") + str(metal) + str(" ") + str(soldiers) + str(" ") + str(farms) + str(" ") + str(mills) + str(" ") + str(mines) + str(" ") + str(barracks) + str(" ") + str(farmCost) + str(" ") + str(millCost) + str(" ") + str(mineCost) + str(" ") + str(barrackCost) + str(" ") + str(battleStage))
     elif choice.lower() == "help":
         print("Choose a number for your choice unless in battle, where you choose to attack or defend. ")
-    choice = input("1. Check how many of each item you have \n2. Check how many of each factory you have \n3. Purchase more factories \n4. Go to battle at level " + str((battleStage + 1)) + "\n5. Wait for a certain number of years. \n6. Quit \nWhat would you like to do? (help for help) ")
+    choice = input("1. Check how many of each item you have \n2. Check how many of each factory you have \n3. Purchase more factories \n4. Go to battle at level " + str((battleStage + 1)) + "\n5. Wait for a certain number of years. \n6. Obtain your Save Data \n7. Quit \nWhat would you like to do? (help for help) ")
 
 
 
