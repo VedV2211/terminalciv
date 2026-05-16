@@ -11,7 +11,7 @@ if saveDataQuery != "":
     difficultyQuery = saveData[14]
     saveDataUsed = False
 elif saveDataQuery == "":
-    saveData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 20, 30, 50, 0]
+    saveData = [100, 0, 0, 0, 0, 0, 0, 0, 0, 10, 20, 30, 50, 0]
     difficultyQuery = input("How difficult would you like this game to be? \nEasy\nMedium\nHard\nImpossible\nWhich difficulty? ")
 
 # These are the items that the player starts with
@@ -86,22 +86,30 @@ while choice != "7":
         factory = int(factoryChoiceArray[0])
         # short for numberOfFactories
         nOF = abs(int(factoryChoiceArray[1]))
-        if (factory == 1) & (coins >= farmCost * nOF):
-            farms += nOF 
-            coins -= farmCost * nOF
-        elif (factory == 2) & (food >= millCost * nOF):
-            mills += nOF
-            food -= millCost * nOF
-        elif (factory == 3) & (wood >= mineCost * nOF):
-            mines += nOF
-            wood -= mineCost * nOF
-        elif (factory == 4) & (food >= barrackCost * nOF) & (wood >= barrackCost * nOF) & (metal >= barrackCost * nOF):
-            barracks += nOF
-            food -= barrackCost * nOF
-            wood -= barrackCost * nOF
-            metal -= barrackCost * nOF
-        elif factory > 5:
-            print("        Please try again")
+        if (factory == 1) & (coins >= ((farmCost * nOF) + (((nOF ** 2) - nOF))/2)):
+            for i in range(nOF):
+                farms += 1
+                coins -= farmCost
+                farmCost += 1
+        elif (factory == 2) & (food >= ((millCost * nOF) + (((nOF ** 2) - nOF))/2)): 
+            for i in range(nOF):
+                mills += 1
+                food -= millCost
+                millCost += 1
+        elif (factory == 3) & (wood >= ((mineCost * nOF) + (((nOF ** 2) - nOF))/2)): 
+            for i in range(nOF):
+                mines += 1
+                wood -= mineCost
+                mineCost += 1
+        elif (factory == 4) & (food >= ((mineCost * nOF) + (((nOF ** 2) - nOF))/2)) & (wood >= ((mineCost * nOF) + (((nOF ** 2) - nOF))/2)) & (metal >= ((mineCost * nOF) + (((nOF ** 2) - nOF))/2)):
+            for i in range(nOF):
+                barracks += 1
+                food -= barrackCost
+                wood -= barrackCost
+                metal -= barrackCost
+                barrackCost += 1
+        elif factory >= 5:
+            print("Come again soon! ")
         else:
             print("        You did not have enough resources. ")
     
@@ -187,7 +195,7 @@ while choice != "7":
     # The user can get basic help
     elif choice.lower() == "help":
         print("Choose a number for your choice unless in battle, where you choose to attack or defend. ")
-    
+   
     if battleStage == 7:
         print("")
         print("")
