@@ -3,7 +3,7 @@ import time
 
 # Allows for the player to input a save ID that will bring their items, factories and battle stage to a new run 
 saveDataQuery = input("What is your save ID? (leave empty if N/A) ")
-if saveDataQuery != ""
+if saveDataQuery != "":
     saveData = saveDataQuery.split()
 elif saveDataQuery == "":
     saveData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 20, 30, 50, 0]
