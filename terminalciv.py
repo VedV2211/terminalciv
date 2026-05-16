@@ -1,7 +1,7 @@
 import random
 import time
 
-# Allows for the player to input a save ID that will bring their items, factories and battle stage to a new run 
+# Allows for the player to input a save ID that will bring their items, factories and battle stage to a new ruint(saveData[4])n
 
 saveDataUsed = False
 
@@ -19,8 +19,7 @@ coins = int(saveData[0])
 food = int(saveData[1])
 wood = int(saveData[2])
 metal = int(saveData[3])
-soldiers = int(saveData[4])
-
+soldiers = int(saveData[4]) 
 
 # These are the number of factories that the player starts with
 farms = int(saveData[5])
@@ -133,14 +132,14 @@ while choice != "7":
 
             if enemyHealth[battleStage] > 0:
                 if enemyAttackchoice == 1:
-                    enemyAttack = ((random.randint(20, 60)) * enemyStrength[battleStage])
+                    enemyAttack = (random.randint(20, 60)) * ((enemyStrength[battleStage]) ** 2)
                     soldiersDefend -= enemyAttack
                     if soldiersDefend < 0:
                         soldiers += round(soldiersDefend/soldiers)
                     print("    The enemy did " + str(enemyAttack) + " damage to you.")
 
                 elif enemyAttackchoice == 2:
-                    enemyHealed = (random.randint(5,20)) * enemyStrength[battleStage]
+                    enemyHealed = (random.randint(5,20)) * (enemyStrength[battleStage] ** 2)
                     print("    The enemy used their medical supplies and healed " + str(enemyHealed) + " health points. ")
                     enemyHealth[battleStage] += enemyHealed
 
@@ -195,7 +194,7 @@ while choice != "7":
         print("You beat the game! ")
         print("")
         print("")
-        choice = 7
+        choice = "7"
     else: 
         choice = input("1. Check how many of each item you have \n2. Check how many of each factory you have \n3. Purchase more factories \n4. Go to battle at level " + str((battleStage + 1)) + "\n5. Wait for a certain number of years. \n6. Obtain your Save Data \n7. Quit \nWhat would you like to do? (help for help) ")
 
