@@ -2,13 +2,17 @@ import random
 import time
 
 # Allows for the player to input a save ID that will bring their items, factories and battle stage to a new run 
+
+saveDataUsed = False
+
 saveDataQuery = input("What is your save ID? (leave empty if N/A) ")
 if saveDataQuery != "":
     saveData = saveDataQuery.split()
+    difficultyQuery = saveData[14]
+    saveDataUsed = False
 elif saveDataQuery == "":
     saveData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 20, 30, 50, 0]
-
-saveDataUsed = False
+    difficultyQuery = input("How difficult would you like this game to be? \nEasy\nMedium\nHard\nImpossible\nWhich difficulty? ")
 
 # These are the items that the player starts with
 coins = int(saveData[0])
@@ -35,15 +39,26 @@ attack = 6
 defend = 6
 soldiersDefend = 0
 hand = ["attack", "defend"]
-enemyHealth = [100, 200, 500, 1000, 1500, 3000]
-enemyStrength = [1, 2, 3, 5, 7, 10]
+
+if difficultyQuery.lower() == "easy":
+    enemyHealth = [100, 200, 700, 2000, 5000, 10000, 20000]
+    enemyStrength = [1, 2, 3, 5, 7, 10, 20]
+elif difficultyQuery.lower() == "normal":
+    enemyHealth = [300, 600, 1200, 2700, 7000, 15000, 30000]
+    enemyStrength = [2, 3, 5, 7, 10, 20, 25]
+elif difficultyQuery.lower() == "hard":
+    enemyHealth = [1000, 2000, 7000, 5000, 10000, 25000, 50000]
+    enemyStrength = [5, 10, 15, 25, 35, 50, 60]
+elif difficultyQuery.lower() == "impossible":
+    enemyHealth = [5000, 10000, 20000, 50000, 150000, 500000, 1000000]
+    enemyStrength = [15, 35, 50, 75, 120, 200, 500]
+
 enemyDefend = 0
 battleStage = int(saveData[13])
 if saveDataQuery == "":
     choice = input("Press 5 to wait for a certain number of years to start the game. ")
 else:
     choice = input("Press any key to continue. ")
-    saveDataUsed = True
 while choice != "7":
     # Prints out all of the player's items
     if choice == "1":
@@ -168,13 +183,21 @@ while choice != "7":
 
     # The user's save ID is printed out
     elif choice == "6":
-        print(str(coins) + str(" ") + str(food) + str(" ") + str(wood) + str(" ") + str(metal) + str(" ") + str(soldiers) + str(" ") + str(farms) + str(" ") + str(mills) + str(" ") + str(mines) + str(" ") + str(barracks) + str(" ") + str(farmCost) + str(" ") + str(millCost) + str(" ") + str(mineCost) + str(" ") + str(barrackCost) + str(" ") + str(battleStage))
+        print(str(coins) + str(" ") + str(food) + str(" ") + str(wood) + str(" ") + str(metal) + str(" ") + str(soldiers) + str(" ") + str(farms) + str(" ") + str(mills) + str(" ") + str(mines) + str(" ") + str(barracks) + str(" ") + str(farmCost) + str(" ") + str(millCost) + str(" ") + str(mineCost) + str(" ") + str(barrackCost) + str(" ") + str(battleStage) + str(" ") + str(difficultyQuery))
     
     # The user can get basic help
     elif choice.lower() == "help":
         print("Choose a number for your choice unless in battle, where you choose to attack or defend. ")
-
-    choice = input("1. Check how many of each item you have \n2. Check how many of each factory you have \n3. Purchase more factories \n4. Go to battle at level " + str((battleStage + 1)) + "\n5. Wait for a certain number of years. \n6. Obtain your Save Data \n7. Quit \nWhat would you like to do? (help for help) ")
+    
+    if battleStage == 7:
+        print("")
+        print("")
+        print("You beat the game! ")
+        print("")
+        print("")
+        choice = 7
+    else: 
+        choice = input("1. Check how many of each item you have \n2. Check how many of each factory you have \n3. Purchase more factories \n4. Go to battle at level " + str((battleStage + 1)) + "\n5. Wait for a certain number of years. \n6. Obtain your Save Data \n7. Quit \nWhat would you like to do? (help for help) ")
 
 
 
