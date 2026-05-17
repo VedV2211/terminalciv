@@ -10,13 +10,13 @@ if saveDataQuery != "":
     saveDataUsed = True
     difficultyQuery = saveData[14]
 elif saveDataQuery == "":
-    saveData = [1, 0, 0, 0, 0, 0, 0, 0, 0, 10, 20, 30, 50, 0, "Easy", 0]
-    difficultyQuery = input("How difficult would you like this game to be? \nEasy\nMedium\nHard\nImpossible\nWhich difficulty? ")
+    saveData = [0, 0, 0, 0, 0, 1, 0, 0, 0, 10, 20, 30, 50, 0, 1, 0]
+    difficultyQuery = input("How difficult would you like this game to be? \nEasy (Press 1) \nNormal (Press 2) \nHard (Press 3) \nImpossible (Press 4) \nWhich difficulty? ")
     saveData[14] = difficultyQuery
 
     print("")
     print("You have just suceeded your ancestors as the new monarch of your country. \nYou must manage your kingdom's resources effectively while defeating the enemies that your family has been fighting for centuries. ")
-    print("To begin with, you have been bequeathed with one gold coin. ")
+    print("To begin with, you have been bequeathed with one farm. ")
     print("Will you rise to the challenge? ")
     print("")
 
@@ -47,26 +47,26 @@ defend = 6
 soldiersDefend = 0
 hand = ["attack", "defend"]
 
-if difficultyQuery.lower() == "easy":
+if difficultyQuery.lower() == "1":
     enemyHealth = [100, 200, 700, 2000, 5000, 10000, 20000]
     enemyStrength = [1, 2, 3, 5, 7, 10, 20]
-elif difficultyQuery.lower() == "normal":
+elif difficultyQuery.lower() == "2":
     enemyHealth = [300, 600, 1200, 2700, 7000, 15000, 30000]
     enemyStrength = [2, 3, 5, 7, 10, 20, 25]
-elif difficultyQuery.lower() == "hard":
+elif difficultyQuery.lower() == "3":
     enemyHealth = [1000, 2000, 7000, 5000, 10000, 25000, 50000]
     enemyStrength = [5, 10, 15, 25, 35, 50, 60]
-elif difficultyQuery.lower() == "impossible":
+elif difficultyQuery.lower() == "4":
     enemyHealth = [5000, 10000, 20000, 50000, 150000, 500000, 1000000]
     enemyStrength = [15, 35, 50, 75, 120, 200, 500]
 else:
     print("Please start over. ")
+
 enemyDefend = 0
 battleStage = int(saveData[13])
-if saveDataQuery == "":
-    choice = input("Press 5 to wait for a certain number of years to start the game. ")
-else:
-    choice = input("Press any key to continue. ")
+
+choice = input("Press any key to continue. ")
+
 while choice != "7":
     # Prints out all of the player's items
     if choice == "1":
@@ -184,23 +184,23 @@ while choice != "7":
     elif choice == "5":
         years = int(input("How long would you like to wait for? "))
         print("")
-        if (coins >= (years * farms)) & (food >= (years * (mills + barracks))) & (wood >= (years * (mines + barracks))) & (metal >= (years * barracks)):
-            for i in range(years):
-                coins += 1 + mills + mines + barracks
-                food += farms - mills
-                wood += mills - mines
-                metal += mines - barracks
-                soldiers += barracks 
-                time.sleep(1)
-                timeSpent += 1
-                if i == 0:
-                    print("    It has now been 1 year.")
-                else:
-                    print("    It has now been " + str(i + 1) + " years.")
-        else:
-            print("You do not have enough resources, and your kingdom would perish. ")
+        for i in range(years):
+            coins += farms + mills + mines + barracks
+            food += farms
+            wood += mills
+            metal += mines
+            soldiers += barracks 
+            time.sleep(1)
+            timeSpent += 1
+            if i == 0:
+                print("    It has now been 1 year.")
+            else:
+                print("    It has now been " + str(i + 1) + " years.")
+            if (coins < 0) or (food < 0) or (wood < 0) or (metal < 0):
+                print("You have run out of resources, and your kingdom is on the brink of perishing. ")
+                break
         print("")
-
+    
     # The user's save ID is printed out
     elif choice == "6":
         print(str(coins) + str(" ") + str(food) + str(" ") + str(wood) + str(" ") + str(metal) + str(" ") + str(soldiers) + str(" ") + str(farms) + str(" ") + str(mills) + str(" ") + str(mines) + str(" ") + str(barracks) + str(" ") + str(farmCost) + str(" ") + str(millCost) + str(" ") + str(mineCost) + str(" ") + str(barrackCost) + str(" ") + str(battleStage) + str(" ") + str(difficultyQuery) + str(" ") + str(timeSpent))
