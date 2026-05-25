@@ -292,7 +292,7 @@ while choice != "7":
 
     if battleStage == 7:
         print("")
-        print("")
+        print("*******************************************************************")
         print("You beat the game! ")
         print(
             "You had: \n    "
@@ -308,7 +308,7 @@ while choice != "7":
             + " soldiers."
         )
         print("It took you " + str(timeSpent) + " years. Think you can do better? ")
-        print("")
+        print("*******************************************************************")
         print("")
         choice = "7"
     else:
